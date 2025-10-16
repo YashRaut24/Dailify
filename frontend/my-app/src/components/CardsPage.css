@@ -1,0 +1,154 @@
+body.light-mode {
+    background-color: #f9f9f9; 
+    color: #000; transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff; 
+    transition: all 0.3s ease; 
+}
+
+.cardspage, .darkcardsPage {
+  position: absolute;
+  top: 1.7%;
+  left: 18.7%;
+  right: 4%;
+  height: 715px;
+  padding: 25px;
+  border-radius: 12px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.cardspage {
+   background: #f8fafc; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.darkcardsPage {
+   background: #1e1e1e; 
+  color: #f0f0f0;
+   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.cardspage.expanded, .darkcardsPage.expanded {
+   left: 73px; 
+}
+
+.cardspage::-webkit-scrollbar,
+.darkcardsPage::-webkit-scrollbar {
+   width: 8px;
+}
+
+.cardspage::-webkit-scrollbar-thumb, 
+.darkcardsPage::-webkit-scrollbar-thumb {
+   background: rgba(0,0,0,0.2);
+   border-radius: 4px; 
+}
+
+.cardspage::-webkit-scrollbar-thumb:hover, 
+.darkcardsPage::-webkit-scrollbar-thumb:hover { 
+  background: rgba(0,0,0,0.4); 
+}
+
+.tools-container {
+   display: flex; 
+   margin-left: -15px;
+   width: auto; 
+}
+
+.tools-column { 
+  padding-left: 15px; 
+  background-clip:padding-box; 
+}
+
+.animated-card {
+  display: flex; 
+  flex-direction: column; 
+  align-items: stretch;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.card {
+  position: relative;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+  min-width: 98%;
+}
+
+.darkcardsPage .card { 
+  background: #2a2a2a;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+.card:hover { 
+  transform: translateY(-6px) scale(1.05);
+   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.darkcardsPage .card:hover { 
+  background: #3a3a3a;
+   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+ }
+
+.first-content, .second-content {
+   width: 100%;
+   display: flex;
+   justify-content: center; 
+  align-items: center; 
+  flex-direction: column; 
+  transition: all 0.5s ease;
+}
+
+.first-content {
+   opacity: 1; 
+}
+
+.card:hover .first-content {
+   opacity: 0;
+   transform: translateY(-100px);
+}
+
+.second-content {
+   opacity: 0; 
+  transform: translateY(100px); 
+  font-size: 1rem;
+   text-align: center;
+}
+
+.card:hover .second-content {
+  opacity: 1; 
+  transform: translateY(-10px); 
+}
+
+.card h3 {
+   font-size: 1.2rem;
+   font-weight: 600;
+   margin: 0;
+   color: lightgray;
+}
+
+.card p {
+   font-size: 0.95rem;
+   color: #555;
+   margin: 0;
+  }
+
+.darkcardsPage .card p {
+   color: #ccc; 
+}
+
+@media (max-width: 700px) {
+  .card { min-height: 200px; }
+}

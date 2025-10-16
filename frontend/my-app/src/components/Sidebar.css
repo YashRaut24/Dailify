@@ -1,0 +1,101 @@
+/* ===== Light Mode Sidebar ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #f8f9fa;
+  padding-top: 60px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+  border-right: 1px solid #e0e0e0;
+  width: 17.7%;
+  min-width: 240px;
+  max-width: 300px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  min-width: 60px;
+}
+
+.toggleButton {
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #e0e0e0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.toggleButton:hover {
+  background: #d0d0d0;
+}
+
+/* ===== Dark Mode Sidebar ===== */
+.darkSidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #1e1e1e;
+  padding-top: 60px;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.6);
+  border-right: 1px solid #444;
+  width: 17.7%;
+  min-width: 240px;
+  max-width: 300px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.darkSidebar.collapsed {
+  width: 60px;
+  min-width: 60px;
+}
+
+.darkToggleButton {
+  position: absolute;
+  top: 50%;
+  right: -15px;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #666;
+  background: #333;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.darkToggleButton:hover {
+  background: #444;
+  color: #fff;
+}
+
+.sidebar p {
+  color: #333;
+  margin-left: 15px;
+}
+
+.darkSidebar p {
+  color: #ccc;
+  margin-left: 15px;
+}
