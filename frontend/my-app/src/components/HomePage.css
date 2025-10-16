@@ -72,3 +72,28 @@
   left: 18.8%;
   right: 4.2%;
 }
+
+/* .Card{
+  height: 80px;
+  width: 100%;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  color: black;
+}
+.box{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(transparent,black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -80px;
+  
+}
+
+.Card:hover .box{
+  transform: translateY(-100%);
+  translate: all ease 1s;
+} */
