@@ -1,50 +1,74 @@
-.list, .darklist {
-  position: absolute;   /* aligns with sidebar/cards */
+.task-container {
+  position: absolute;
   top: 2%;
-  left: 18.8%;            /* when sidebar is expanded */
+  left: 18.8%;
   right: 4.2%;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* space between tasks */
+}
+
+.task-container.expanded {
+  left: 73px;
+}
+
+.taskListArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.list, .darklist {
+  width: 100%;
   height: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-weight: bold;
-  background-color: rgb(50, 50, 50); 
-  transition: all 0.3s ease;   /* smooth animation */
-  border: none;         /* remove border */
-  outline: none;        /* remove blue outline */
-  padding: 0 10px;      /* optional: add inner space */
-  font-size: 16px;      /* make it readable */
-  border-radius: 6px;   /* optional: smooth corners */
+  background-color: rgb(50, 50, 50);
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+  padding: 0 60px 0 15px; /* right padding for button space */
+  font-size: 16px;
+  border-radius: 6px;
+  color: white;
 }
 
 .darklist {
   background-color: #333;
   color: white;
-  border: none;
-  outline: none; 
 }
 
-/* when collapsed */
-.list.expanded, .darklist.expanded {
-  left: 73px;   /* smoothly animates to here */
+.list {
+  background-color: rgb(50, 50, 50);
+  color: white;
 }
 
-.dropDown{  position: absolute;   /* aligns with sidebar/cards */
-
-   background-color: red;
-   color:aquamarine;
-     transition: all 0.3s ease;   /* smooth animation */
-   top: 8.5%;
-  left: 18.8%;            /* when sidebar is expanded */
-  right: 4.2%;
-}
-
-.add-note{
-  margin-left: 1430px;
-  margin-top: 70px;
+.add-note {
+  position: absolute;
+  right: 10px;
   font-size: 30px;
   font-weight: bold;
-  color:white;
+  color: white;
   background: none;
   border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: transform 0.2s;
+}
+
+.add-note:hover {
+  transform: scale(1.2);
+}
+
+.dropDown {
+  position: absolute;
+  background-color: red;
+  color: aquamarine;
+  transition: all 0.3s ease;
+  top: 8.5%;
+  left: 18.8%;
+  right: 4.2%;
 }
