@@ -24,29 +24,35 @@ function HomePage(props) {
     }
   };
 
+  const removeTask = (index) => {
+    const existingTasks = [...tasks];
+    existingTasks.splice(index, 1);
+    setTasks(existingTasks);
+  };
+
   const updateTask = (index, value) => {
     const newTasks = [...tasks];
     newTasks[index] = { ...newTasks[index], text: value };
     setTasks(newTasks);
   };
 
-const handleKeyPress = (e, index) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    if (tasks[index].text.trim() === "") {
-      alert("Please enter a note");
-    } else {
-      addTask(index);
+  const handleKeyPress = (e, index) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (tasks[index].text.trim() === "") {
+        alert("Please enter a note");
+      } else {
+        addTask(index);
+      }
     }
-  }
-};
-
+  };
 
   return (
     <div className={`task-container ${props.collapsed ? "expanded" : ""}`}>
       {tasks.map((task, index) => (
         <div key={task.id} className="taskListArea">
-          <input
+          <div className="listContainer">
+            <input
             ref={el => inputRefs.current[index] = el}
             type="text"
             placeholder="Enter your task"
@@ -54,7 +60,15 @@ const handleKeyPress = (e, index) => {
             value={task.text}
             onChange={(e) => updateTask(index, e.target.value)}
             onKeyDown={(e) => handleKeyPress(e, index)}
-          />
+            />
+            <button 
+              className="remove-note" 
+              onClick={() => removeTask(index)}
+              aria-label="Add task"
+            >
+              ×
+            </button>
+          </div>
           <button 
             className="add-note" 
             onClick={() => addTask(index)}
