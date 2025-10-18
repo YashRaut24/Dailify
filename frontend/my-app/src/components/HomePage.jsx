@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./HomePage.css";
+import axios from "axios";
 
 function HomePage(props) {
   const [tasks, setTasks] = useState([{ id: Date.now(), text: "" }]);
@@ -15,9 +16,10 @@ function HomePage(props) {
   const addTask = (index) => {
     const newId = Date.now();
     const newTasks = [...tasks];
+    
     if(tasks[index].text.trim() === "" ){
       alert("Please enter a note");
-    }else{
+    } else {
       newTasks.splice(index + 1, 0, { id: newId, text: "" });
       setTasks(newTasks);
       setFocusIndex(index + 1);
@@ -25,9 +27,12 @@ function HomePage(props) {
   };
 
   const removeTask = (index) => {
-    const existingTasks = [...tasks];
-    existingTasks.splice(index, 1);
-    setTasks(existingTasks);
+    const taskToDelete = tasks[index];
+
+    if (!taskToDelete || taskToDelete.text.trim() === "") {
+      alert("Cannot delete an empty task!");
+      return;
+    }
   };
 
   const updateTask = (index, value) => {
@@ -39,10 +44,19 @@ function HomePage(props) {
   const handleKeyPress = (e, index) => {
     if (e.key === "Enter") {
       e.preventDefault();
+      
       if (tasks[index].text.trim() === "") {
         alert("Please enter a note");
       } else {
-        addTask(index);
+        axios.post("http://localhost:9000/add", { 
+          task: tasks[index].text 
+        })
+        .then(() => {
+          addTask(index);
+        })
+        .catch(() => {
+          alert("Error adding task");
+        });
       }
     }
   };
@@ -53,24 +67,27 @@ function HomePage(props) {
         <div key={task.id} className="taskListArea">
           <div className="listContainer">
             <input
-            ref={el => inputRefs.current[index] = el}
-            type="text"
-            placeholder="Enter your task"
-            className={props.mode ? "darklist" : "list"}
-            value={task.text}
-            onChange={(e) => updateTask(index, e.target.value)}
-            onKeyDown={(e) => handleKeyPress(e, index)}
+              ref={el => inputRefs.current[index] = el}
+              type="text"
+              placeholder="Enter your task"
+              className={props.mode ? "darklist" : "list"}
+              value={task.text}
+              onChange={(e) => updateTask(index, e.target.value)}
+              onKeyDown={(e) => handleKeyPress(e, index)}
             />
             <button 
               className="remove-note" 
-              onClick={() => removeTask(index)}
-              aria-label="Add task"
+              onClick={() => {
+                if (tasks.length > 1) removeTask(index);
+                else alert("At least one note required!");
+              }}
+              aria-label="Remove task"
             >
               ×
             </button>
           </div>
           <button 
-            className={props.mode ? "dark-addNote" : "add-note" }
+            className={props.mode ? "dark-addNote" : "add-note"}
             onClick={() => addTask(index)}
             aria-label="Add task"
           >
@@ -78,10 +95,6 @@ function HomePage(props) {
           </button>
         </div>
       ))}
-      {/* <div className="Card">
-          <h3>Hover ME</h3>
-          <div className="box">YAsh Raut</div>  
-      </div> */}
     </div>
   );
 }
