@@ -70,7 +70,7 @@ function HomePage(props) {
             </button>
           </div>
           <button 
-            className="add-note" 
+            className={props.mode ? "dark-addNote" : "add-note" }
             onClick={() => addTask(index)}
             aria-label="Add task"
           >
