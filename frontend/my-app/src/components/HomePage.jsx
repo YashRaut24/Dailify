@@ -33,6 +33,19 @@ function HomePage(props) {
       alert("Cannot delete an empty task!");
       return;
     }
+
+    axios.delete("http://localhost:9000/delete", { 
+      data: { task: taskToDelete.text } 
+    })
+    .then(() => {
+      const existingTasks = [...tasks];
+      existingTasks.splice(index, 1);
+      setTasks(existingTasks);
+      alert("Task deleted successfully!");
+    })
+    .catch(() => {
+      alert("Error deleting task!");
+    });
   };
 
   const updateTask = (index, value) => {
