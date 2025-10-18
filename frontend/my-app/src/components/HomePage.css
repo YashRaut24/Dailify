@@ -43,11 +43,11 @@
 
 .darklist {
   background-color: #333;
-  color: white;
+  color: black;
 }
 
 .list {
-  background-color: rgb(50, 50, 50);
+  background-color: lightgray;
   color: white;
 }
 
@@ -69,13 +69,14 @@
   transform: scale(1.2);
 }
 
-.add-note {
+.add-note,
+.dark-addNote {
   position: absolute;
   right: 10px;
   top:45px;
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  color: black;
   background: none;
   border: none;
   cursor: pointer;
@@ -83,7 +84,12 @@
   transition: transform 0.2s;
 }
 
-.add-note:hover {
+.dark-addNote{
+  color:white;
+}
+
+.add-note:hover,
+.dark-addNote:hover {
   transform: scale(1.2);
 }
 
