@@ -18,6 +18,13 @@
   min-width: 60px;
 }
 
+.sidebar-content {
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: visible;
+  padding-bottom: 20px;
+}
+
 .toggleButton {
   position: absolute;
   top: 50%;
@@ -42,7 +49,6 @@
   background: #d0d0d0;
 }
 
-/* ===== Dark Mode Sidebar ===== */
 .darkSidebar {
   position: fixed;
   top: 0;
@@ -99,6 +105,17 @@
   margin-left: 15px;
 }
 
+.task-item-wrapper {
+  position: relative;
+}
+
+.task-with-delete {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .task,
 .darkTask {
   display: block;
@@ -114,6 +131,7 @@
   text-overflow: ellipsis;
   transition: all 0.3s ease;
   cursor: pointer;
+  flex: 1;
 }
 
 .task {
@@ -128,6 +146,13 @@
   color: #222;
 }
 
+.task.active {
+  background-color: #d0d0d0;
+  border-color: #b0b0b0;
+  color: #2c2c2c;
+  font-weight: 600;
+}
+
 .darkTask {
   color: #ccc;
   background-color: #2a2a2a;
@@ -140,6 +165,21 @@
   color: #fff;
 }
 
+.darkTask.active {
+  background-color: #404040;
+  border-color: #505050;
+  color: #e0e0e0;
+  font-weight: 600;
+}
+
+.collapsed-task-wrapper {
+  position: relative;
+  width: 38px;
+  margin: 8px auto;
+  margin-right: 50px;
+  margin-left: -5px;
+}
+
 .ST,
 .darkST {
   display: flex;
@@ -147,7 +187,6 @@
   justify-content: center;
   height: 36px;             
   width: 36px;
-  margin: 8px auto;
   font-size: 13px;
   font-weight: 600;
   color: #444;
@@ -164,8 +203,13 @@
   color: #222;
 }
 
-.darkST {
+.ST.active {
+  background-color: #d0d0d0;
+  border-color: #b0b0b0;
+  color: #2c2c2c;
+}
 
+.darkST {
   color: #ccc;
   background-color: #2a2a2a;
   border: 1px solid #444;
@@ -175,4 +219,122 @@
   background-color: #3a3a3a;
   border-color: #555;
   color: #fff;
+}
+
+.darkST.active {
+  background-color: #404040;
+  border-color: #505050;
+  color: #e0e0e0;
+}
+
+.delete-category-btn {
+  position: absolute;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #dc3545;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  opacity: 0.7;
+}
+
+.delete-category-btn:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.delete-category-btn-collapsed {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #dc3545;
+  border: none;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+.delete-category-btn-collapsed:hover {
+  transform: scale(1.2);
+}
+
+.addCategory,
+.darkAddCategory {
+  width: calc(100% - 24px);
+  margin: 15px 12px;
+  padding: 10px;
+  border: 2px dashed darkgray;
+  background: transparent;
+  color: darkgrey;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addCategory:hover {
+  background-color: darkgrey;
+  color: white;
+}
+
+.darkAddCategory {
+  border-color: darkgrey;
+  color: darkgray;
+}
+
+.darkAddCategory:hover {
+  background-color: rgb(80, 80, 80);
+  color: white;
+}
+
+.addCategoryCollapsed,
+.darkAddCategoryCollapsed {
+  width: 36px;
+  height: 36px;
+  margin: 8px auto;
+  border: 2px dashed darkgray;
+  background: transparent;
+  color: darkgray;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.addCategoryCollapsed:hover {
+  background-color: darkgrey;
+  color: white;
+}
+
+.darkAddCategoryCollapsed {
+  border-color: darkgray;
+  color: darkgray;
+}
+
+.darkAddCategoryCollapsed:hover {
+  background-color: rgb(80, 80, 80);
+  color: white;
 }
