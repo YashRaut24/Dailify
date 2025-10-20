@@ -7,6 +7,7 @@ import Sidebar from "./components/Sidebar"
 import HomePage from "./components/HomePage"
 import Header from "./components/Header"
 import CardsPage from "./components/CardsPage"
+import axios from "axios"
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,9 +30,7 @@ function App() {
 
   const [collapsed, setCollapsed] = useState(false);
   
-  const [taskCategories, setTaskCategories] = useState([
-    { id: "task1", name: "Tasks 1" }
-  ]);
+  const [taskCategories, setTaskCategories] = useState([]);
   const [selectedTask, setSelectedTask] = useState("task1");
 
   const addTaskCategory = () => {
@@ -68,6 +67,7 @@ function App() {
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
         taskCategories={taskCategories}
+        setTaskCategories={setTaskCategories}
         addTaskCategory={addTaskCategory}
         deleteTaskCategory={deleteTaskCategory}
       />
