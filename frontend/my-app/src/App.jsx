@@ -8,10 +8,15 @@ import HomePage from "./components/HomePage"
 import Header from "./components/Header"
 import CardsPage from "./components/CardsPage"
 import axios from "axios"
+import Profile from "./components/Profile"
 
 function App() {
   const [count, setCount] = useState(0);
   let [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
+  const [collapsed, setCollapsed] = useState(false);
+  const [taskCategories, setTaskCategories] = useState([]);
+  const [selectedTask, setSelectedTask] = useState("task1");
+  const [profileVisible, setProfileVisible] = useState(false);
   
   function changeTheme() {
     localStorage.setItem("darkMode", !darkMode);
@@ -27,11 +32,6 @@ function App() {
       document.body.classList.remove("dark-mode");
     }
   }, [darkMode]);
-
-  const [collapsed, setCollapsed] = useState(false);
-  
-  const [taskCategories, setTaskCategories] = useState([]);
-  const [selectedTask, setSelectedTask] = useState("task1");
 
   const addTaskCategory = () => {
     const newId = `task${taskCategories.length + 1}`;
@@ -71,12 +71,26 @@ function App() {
         addTaskCategory={addTaskCategory}
         deleteTaskCategory={deleteTaskCategory}
       />
+
+      <Profile 
+        isVisible={profileVisible} 
+        onClose={() => setProfileVisible(false)} 
+        mode={darkMode ? 'dark' : 'light'} 
+      />
+
+
       <HomePage 
         mode={darkMode} 
         collapsed={collapsed}
         selectedTask={selectedTask}
+        profileVisible={profileVisible}
       />
-      <Navbar mode={darkMode} changeTheme={changeTheme} />
+      <Navbar 
+        mode={darkMode} 
+        changeTheme={changeTheme}
+        profileVisible={profileVisible}
+        setProfileVisible={setProfileVisible}
+      />
     </>
   )
 }
