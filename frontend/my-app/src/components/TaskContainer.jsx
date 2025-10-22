@@ -135,11 +135,10 @@ function TaskContainer(props){
         return <div className="loading">Loading tasks...</div>;
     }
 
-    return (
+    return ( 
         <div>
             {currentTasks.map((task, index) => (
                 <div key={task.id} className="taskListArea">
-                    <div className="listContainer">
                         <input
                             ref={el => inputRefs.current[index] = el}
                             type="text"
@@ -159,7 +158,6 @@ function TaskContainer(props){
                         >
                             ×
                         </button>
-                    </div>
                     <button 
                         className={props.mode ? "dark-addNote" : "add-note"}
                         onClick={() => addTask(index)}
