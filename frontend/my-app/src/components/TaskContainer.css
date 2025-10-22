@@ -3,51 +3,57 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom:35px;
+  margin-bottom: 35px;
 }
 
-.listContainer{
-  width: 94%;
-}
-
-
-.list, .darklist {
-  width: 100%;
+/* Default list (collapsed) */
+.list,
+.darklist {
+  position: relative;
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-weight: bold;
-  background-color: rgb(50, 50, 50);
   transition: all 0.3s ease;
   border: none;
   outline: none;
-  padding: 0 60px 0 15px; /* right padding for button space */
+  padding: 0 60px 0 25px;
   font-size: 16px;
   border-radius: 6px;
-  color: white;
+  width: 94%; /* Normal width */
+  margin: 0 auto;
 }
 
-.darklist {
-  background-color: #333;
-  color: black;
-}
-
+/* Theme variants */
 .list {
   background-color: lightgray;
   color: white;
 }
 
+.darklist {
+  background-color: #333;
+  color: white;
+}
+
+/* Expanded state (increases width toward right only) */
+.list.expanded,
+.darklist.expanded {
+  width: 100%; /* Expands smoothly */
+  margin-left: 0; /* Keeps expansion aligned to right */
+}
+
+/* Buttons */
 .remove-note {
   position: absolute;
-  right: 10px;
-  top:2%;
+  right:8px;
+  top: 8px;
   font-size: 30px;
   font-weight: bold;
   color: red;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px 10px;
   transition: transform 0.2s;
 }
 
@@ -59,19 +65,21 @@
 .dark-addNote {
   position: absolute;
   right: 10px;
-  top:45px;
-  font-size: 30px;
+  top: 52px;
+  font-size: 26px;
   font-weight: bold;
-  color: black;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 5px 10px;
   transition: transform 0.2s;
 }
 
-.dark-addNote{
-  color:white;
+.add-note {
+  color: black;
+}
+
+.dark-addNote {
+  color: white;
 }
 
 .add-note:hover,
@@ -79,12 +87,25 @@
   transform: scale(1.2);
 }
 
+/* Drop-down area under the list */
 .dropDown {
   position: absolute;
-  background-color: red;
-  color: aquamarine;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background-color: #222;
+  color: white;
+  border-radius: 0 0 6px 6px;
+  padding: 10px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
   transition: all 0.3s ease;
-  top: 8.5%;
-  left: 18.8%;
-  right: 4.2%;
+}
+
+/* When list is expanded, show dropdown */
+.list.expanded + .dropDown,
+.darklist.expanded + .dropDown {
+  opacity: 1;
+  max-height: 200px; /* Adjustable based on content */
 }
