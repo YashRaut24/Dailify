@@ -2,15 +2,23 @@ import { useState } from "react";
 import './Navbar.css';
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
 
 function Navbar(props){
 
-    return <div>
-        <div className={props.mode? "darkNavbar":"navbar"}>
-            <button className="theme-toggle" onClick={props.changeTheme}>{props.mode?<MdOutlineLightMode/> :  <MdDarkMode/>}</button>
-        </div>
+    const toggleProfile = (e) => {
+        e.preventDefault();
+        props.setProfileVisible(!props.profileVisible);
+    } 
 
-    </div>
+    return <div className={props.mode? "darkNavbar":"navbar"}>
+            <button className="theme-toggle" onClick={props.changeTheme}>
+                {props.mode ? <MdOutlineLightMode/> : <MdDarkMode/>}
+            </button>
+            <button onClick={toggleProfile} className={props.mode? "dark-profile" : "profile"}>
+                <CgProfile />
+            </button>
+        </div>
 }
 
 export default Navbar;
