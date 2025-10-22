@@ -16,7 +16,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   padding-top: 20px;
+  padding-bottom: 20px;
 
   transition: all 0.3s ease;
 }
@@ -34,8 +36,21 @@
   color: #000;
 }
 
+.profile {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-size: 30px;
+  transition: color 0.3s ease;
+  margin-bottom: 20px;;
+}
 
-/* ===== Dark Mode Navbar ===== */
+.profile:hover {
+  color: #000;
+}
+
+
 .darkNavbar {
   position: fixed;
   top: 0;
@@ -53,7 +68,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   padding-top: 20px;
+  padding-bottom: 20px;
 
   transition: all 0.3s ease;
 }
@@ -68,5 +85,19 @@
 }
 
 .darkNavbar .theme-toggle:hover {
+  color: #fff;
+}
+
+.dark-profile {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 30px;
+  transition: color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.dark-profile:hover {
   color: #fff;
 }
