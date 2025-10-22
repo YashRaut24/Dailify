@@ -3,7 +3,7 @@ import "./HomePage.css";
 import TaskContainer from "./TaskContainer";
 
 function HomePage(props) {
-  if (props.profileVisible) return null; // Hide tasks when profile is visible
+  if (props.profileVisible) return null; 
   
   return (
     <div className={`task-container ${props.collapsed ? "expanded" : ""}`}>
