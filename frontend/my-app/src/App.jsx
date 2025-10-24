@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import Navbar from "./components/Navbar"
+import DashboardNavbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import HomePage from "./components/HomePage"
 import Header from "./components/Header"
-import CardsPage from "./components/CardsPage"
-import axios from "axios"
 import Profile from "./components/Profile"
+import LandingNavbar from "./landings/Navbar"
+import LandingPage from "./landings/LandingPage"
+import About from "./landings/About"
+import Contact from "./landings/Contact"
+import SignIn from "./landings/SignIn"
+import SignUp from "./landings/SignUp"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 function App() {
-  const [count, setCount] = useState(0);
   let [darkMode, setDarkMode] = useState(localStorage.getItem("darkMode") === "true");
   const [collapsed, setCollapsed] = useState(false);
   const [taskCategories, setTaskCategories] = useState([]);
@@ -57,9 +59,8 @@ function App() {
     }
   };
 
-  return (
+  const DashboardLayout = () => (
     <>
-      <Header mode={darkMode} />
       <Sidebar 
         mode={darkMode} 
         collapsed={collapsed} 
@@ -71,27 +72,57 @@ function App() {
         addTaskCategory={addTaskCategory}
         deleteTaskCategory={deleteTaskCategory}
       />
-
+      <Header mode={darkMode}/>
       <Profile 
         isVisible={profileVisible} 
         onClose={() => setProfileVisible(false)} 
         mode={darkMode ? 'dark' : 'light'} 
       />
-
-
       <HomePage 
         mode={darkMode} 
         collapsed={collapsed}
         selectedTask={selectedTask}
         profileVisible={profileVisible}
       />
-      <Navbar 
+      <DashboardNavbar 
         mode={darkMode} 
         changeTheme={changeTheme}
         profileVisible={profileVisible}
         setProfileVisible={setProfileVisible}
       />
     </>
+  );
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <>
+            <LandingNavbar />
+            <LandingPage />
+          </>
+        } />
+        
+        <Route path="/about" element={
+          <>
+            <LandingNavbar />
+            <About />
+          </>
+        } />
+        
+        <Route path="/contact" element={
+          <>
+            <LandingNavbar />
+            <Contact />
+          </>
+        } />
+        
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        
+        <Route path="/dailify" element={<DashboardLayout />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
