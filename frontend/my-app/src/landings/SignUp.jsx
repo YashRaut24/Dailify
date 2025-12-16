@@ -1,31 +1,32 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import { useState } from "react";
 
 function SignUp() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    bio: "",
-    location: "",
-    password: "",
-    confirmPassword: ""
-  });
-  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      alert("Please fill in all required fields (Name, Email, Password)");
-      return;
+  const[name,setName] = useState("");
+  const[email,setEmail] = useState("");
+  const[about,setAbout] = useState("");
+  const[location,setLocation] = useState("");
+  const[password,setPassword] = useState("");
+  const[confirmPassword,setConfirmPassword] = useState("");
+
+  const handleSubmit = () => {
+    alert("Signup successful");
+
+    const formData = {
+      name,
+      email,
+      about,
+      location,
+      password
     }
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
+
+    if(password !== confirmPassword){
+      alert("Password doesn't match please try again!")
+    }else{
+      
     }
-    alert("Account created successfully!");
-    navigate("/dailify");
-  };
+  }
 
   return (
     <div className="auth-page">
@@ -34,57 +35,70 @@ function SignUp() {
         <p className="auth-subtitle">Start your productivity journey today</p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
+
           <input
             type="text"
             placeholder="Full Name *"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="auth-input"
             required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
+
           <input
             type="email"
             placeholder="Email *"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className="auth-input"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
+
           <textarea
             placeholder="Bio (Tell us about yourself)"
-            value={formData.bio}
-            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
             className="auth-textarea"
             rows="3"
+            required
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
           />
+
           <input
             type="text"
             placeholder="Location (e.g., San Francisco, CA)"
-            value={formData.location}
-            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
             className="auth-input"
+            required
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
+
           <input
             type="password"
             placeholder="Password *"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             className="auth-input"
             required
+            value = {password}
+            minLength={6}
+            onChange={(e) => setPassword(e.target.value)}
           />
+
           <input
             type="password"
             placeholder="Confirm Password *"
-            value={formData.confirmPassword}
-            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
             className="auth-input"
             required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button type="submit" className="auth-button">Sign Up</button>
+
+          <button type="submit" className="auth-button">
+            Sign Up
+          </button>
+
         </form>
 
         <p className="auth-link">
-          Already have an account? <span onClick={() => navigate("/signin")}>Sign In</span>
+          Already have an account? <span>Sign In</span>
         </p>
       </div>
     </div>
