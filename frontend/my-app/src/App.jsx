@@ -19,7 +19,7 @@ function App() {
   const [taskCategories, setTaskCategories] = useState([]);
   const [selectedTask, setSelectedTask] = useState("task1");
   const [profileVisible, setProfileVisible] = useState(false);
-  
+   
   function changeTheme() {
     localStorage.setItem("darkMode", !darkMode);
     setDarkMode((prev) => !prev);
