@@ -1,38 +1,58 @@
 import "./SignUp.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function SignUp() {
+  const navigate = useNavigate();
 
-  const[name,setName] = useState("");
-  const[email,setEmail] = useState("");
-  const[about,setAbout] = useState("");
-  const[location,setLocation] = useState("");
-  const[password,setPassword] = useState("");
-  const[confirmPassword,setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [about, setAbout] = useState("");
+  const [location, setLocation] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = () => {
-    alert("Signup successful");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match. Please try again!");
+      return;
+    }
 
     const formData = {
       name,
       email,
-      about,
+      bio: about,
       location,
       password
-    }
+    };
 
-    if(password !== confirmPassword){
-      alert("Password doesn't match please try again!")
-    }else{
-      
+    try {
+      const res = await axios.post(
+        "http://localhost:9000/signup",
+        formData
+      );
+
+      alert(res.data.message || "Signup successful!");
+      navigate("/dailify"); 
+    } catch (err) {
+      console.error(err);
+      alert(
+        err.response?.data?.message ||
+        "Signup failed. Please try again."
+      );
     }
-  }
+  };
 
   return (
     <div className="auth-page">
       <div className="auth-container signup-extended">
         <h2>Create Your Dailify Account</h2>
-        <p className="auth-subtitle">Start your productivity journey today</p>
+        <p className="auth-subtitle">
+          Start your productivity journey today
+        </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
 
@@ -40,25 +60,24 @@ function SignUp() {
             type="text"
             placeholder="Full Name *"
             className="auth-input"
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
 
           <input
             type="email"
             placeholder="Email *"
             className="auth-input"
-            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
           <textarea
             placeholder="Bio (Tell us about yourself)"
             className="auth-textarea"
             rows="3"
-            required
             value={about}
             onChange={(e) => setAbout(e.target.value)}
           />
@@ -67,7 +86,6 @@ function SignUp() {
             type="text"
             placeholder="Location (e.g., San Francisco, CA)"
             className="auth-input"
-            required
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
@@ -76,29 +94,31 @@ function SignUp() {
             type="password"
             placeholder="Password *"
             className="auth-input"
-            required
-            value = {password}
+            value={password}
             minLength={6}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <input
             type="password"
             placeholder="Confirm Password *"
             className="auth-input"
-            required
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            required
           />
 
           <button type="submit" className="auth-button">
             Sign Up
           </button>
-
         </form>
 
         <p className="auth-link">
-          Already have an account? <span>Sign In</span>
+          Already have an account?{" "}
+          <span onClick={() => navigate("/signin")}>
+            Sign In
+          </span>
         </p>
       </div>
     </div>
