@@ -1,19 +1,33 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";          // ✅ FIX 1
 import "./SignIn.css";
 
 function SignIn() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      alert("Please fill in all fields");
-      return;
+
+    try {
+      const res = await axios.post("http://localhost:9000/signin", formData);
+
+      alert("Login successful");   
+      navigate("/dailify");        
+
+    } catch (err) {
+      alert(
+        err.response?.data?.message || "Login failed"
+      );                      
     }
-    alert("Sign in successful!");
-    navigate("/dailify");
   };
 
   return (
@@ -25,23 +39,30 @@ function SignIn() {
         <form className="auth-form" onSubmit={handleSubmit}>
           <input
             type="email"
+            name="email"
             placeholder="Email"
             value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            onChange={handleChange}
             className="auth-input"
+            required
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
             value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            onChange={handleChange}
             className="auth-input"
+            required
           />
           <button type="submit" className="auth-button">Sign In</button>
         </form>
 
         <p className="auth-link">
-          New here? <span onClick={() => navigate("/signup")}>Create an account</span>
+          New here?{" "}
+          <span onClick={() => navigate("/signup")}>
+            Create an account
+          </span>
         </p>
       </div>
     </div>
