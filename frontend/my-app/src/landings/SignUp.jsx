@@ -36,7 +36,7 @@ function SignUp() {
       );
 
       alert(res.data.message || "Signup successful!");
-      navigate("/dailify"); 
+      navigate("/signin"); 
     } catch (err) {
       console.error(err);
       alert(
