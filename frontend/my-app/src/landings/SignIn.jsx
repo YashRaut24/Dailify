@@ -19,7 +19,7 @@ function SignIn() {
 
     try {
       const res = await axios.post("http://localhost:9000/signin", formData);
-
+      localStorage.setItem("userId", res.data.user.id);
       alert("Login successful");   
       navigate("/dailify");        
 
