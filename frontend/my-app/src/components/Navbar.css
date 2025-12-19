@@ -101,3 +101,27 @@
 .dark-profile:hover {
   color: #fff;
 }
+
+.nav-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;    
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+.logout-button a {
+  color: #e53935;  
+  display: flex;
+  align-items: center;
+}
+
+.logout-button a:hover {
+  color: #ff1744;    
+}
