@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
 import './profile.css';
 import { User, Mail, Calendar, MapPin, Edit2, Camera, Save, X } from 'lucide-react';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Profile(props) {
-  if (!props.isVisible) return null;
-
   const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
-    name: 'John Doe',
-    email: 'john.doe@dailify.com',
-    bio: 'Passionate about productivity and mindful living. Love tracking my daily habits and achieving my goals!',
-    location: 'San Francisco, CA',
-    joinDate: 'January 2024',
-    avatar: null
-  });
+  const [profile, setProfile] = useState(null);
+  const [editedProfile, setEditedProfile] = useState(null);
+  const stats = [
+    { label: "Days Active", value: "127" },
+    { label: "Tasks Completed", value: "342" },
+    { label: "Current Streak", value: "12" }
+  ];
 
-  const [editedProfile, setEditedProfile] = useState(profile);
+  useEffect(() => {
+    if (!props.isVisible) return;
 
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
+
+    axios
+      .get(`http://localhost:9000/profile/${userId}`)
+      .then(res => {
+        setProfile(res.data);
+        setEditedProfile(res.data);
+      })
+      .catch(err => console.error(err));
+  }, [props.isVisible]);
+
+  if (!props.isVisible) return null;
+  if (!profile) return 
+  
   const handleEdit = () => {
     setIsEditing(true);
     setEditedProfile(profile);
@@ -38,12 +52,6 @@ function Profile(props) {
       [field]: value
     }));
   };
-
-  const stats = [
-    { label: 'Days Active', value: '127' },
-    { label: 'Tasks Completed', value: '342' },
-    { label: 'Current Streak', value: '12' }
-  ];
 
   return (
     <div className={`profile-container ${!props.isVisible ? 'hide' : ''} ${props.mode === 'dark' ? 'dark-mode' : 'light-mode'}`}>
