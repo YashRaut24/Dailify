@@ -7,15 +7,12 @@
   padding-top: 80px;
   box-shadow: 2px 0 8px rgba(0,0,0,0.08);
   border-right: 1px solid #e0e0e0;
-  width: 17.7%;
-  min-width: 240px;
-  max-width: 300px;
+  width: 240px;
   transition: width 0.3s ease, background-color 0.3s ease;
 }
 
 .sidebar.collapsed {
   width: 60px;
-  min-width: 60px;
 }
 
 .sidebar-content {

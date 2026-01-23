@@ -1,52 +1,12 @@
 import "./TaskContainer.css"
-import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 
 function TaskContainer(props){
     const [tasksByCategory, setTasksByCategory] = useState({});
     const [focusIndex, setFocusIndex] = useState(null);
-    const [loading, setLoading] = useState(true);
     const inputRefs = useRef([]);
 
     const currentTasks = tasksByCategory[props.category] || [{ id: Date.now(), text: "" }];
-
-    useEffect(() => {
-        loadTasksFromDB();
-    }, [props.category]);
-
-    const loadTasksFromDB = () => {
-        setLoading(true);
-        axios.get(`http://localhost:9000/tasks/${props.category}`)
-            .then((response) => {
-                const dbTasks = response.data;
-                
-                if (dbTasks && dbTasks.length > 0) {
-                    const formattedTasks = dbTasks.map((task, index) => ({
-                        id: task._id || Date.now() + index,
-                        text: task.task
-                    }));
-                    
-                    setTasksByCategory(prev => ({
-                        ...prev,
-                        [props.category]: formattedTasks
-                    }));
-                } else {
-                    setTasksByCategory(prev => ({
-                        ...prev,
-                        [props.category]: [{ id: Date.now(), text: "" }]
-                    }));
-                }
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error loading tasks:", error);
-                setTasksByCategory(prev => ({
-                    ...prev,
-                    [props.category]: [{ id: Date.now(), text: "" }]
-                }));
-                setLoading(false);
-            });
-    };
 
     useEffect(() => {
         if (focusIndex !== null && inputRefs.current[focusIndex]) {
@@ -64,7 +24,7 @@ function TaskContainer(props){
     const addTask = (index) => {
         const newId = Date.now();
         const newTasks = [...currentTasks];
-        
+
         if(currentTasks[index].text.trim() === "" ){
             alert("Please enter a note");
         } else {
@@ -82,26 +42,15 @@ function TaskContainer(props){
             return;
         }
 
-        axios.delete("http://localhost:9000/delete", { 
-            data: { 
-                task: taskToDelete.text,
-                category: props.category
-            } 
-        })
-        .then(() => {
-            const existingTasks = [...currentTasks];
-            existingTasks.splice(index, 1);
-            
-            if (existingTasks.length === 0) {
-                existingTasks.push({ id: Date.now(), text: "" });
-            }
-            
-            updateCurrentCategoryTasks(existingTasks);
-            alert("Task deleted successfully!");
-        })
-        .catch(() => {
-            alert("Error deleting task!");
-        });
+        const existingTasks = [...currentTasks];
+        existingTasks.splice(index, 1);
+
+        if (existingTasks.length === 0) {
+            existingTasks.push({ id: Date.now(), text: "" });
+        }
+
+        updateCurrentCategoryTasks(existingTasks);
+        alert("Task deleted successfully!");
     };
 
     const updateTask = (index, value) => {
@@ -113,29 +62,16 @@ function TaskContainer(props){
     const handleKeyPress = (e, index) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            
+
             if (currentTasks[index].text.trim() === "") {
                 alert("Please enter a note");
             } else {
-                axios.post("http://localhost:9000/add", { 
-                    task: currentTasks[index].text,
-                    category: props.category 
-                })
-                .then(() => {
-                    addTask(index);
-                })
-                .catch(() => {
-                    alert("Error adding task");
-                });
+                addTask(index);
             }
         }
     };
 
-    if (loading) {
-        return <div className="loading">Loading tasks...</div>;
-    }
-
-    return ( 
+    return (
         <div>
             {currentTasks.map((task, index) => (
                 <div key={task.id} className="taskListArea">
@@ -148,8 +84,8 @@ function TaskContainer(props){
                             onChange={(e) => updateTask(index, e.target.value)}
                             onKeyDown={(e) => handleKeyPress(e, index)}
                         />
-                        <button 
-                            className="remove-note" 
+                        <button
+                            className="remove-note"
                             onClick={() => {
                                 if (currentTasks.length > 1) removeTask(index);
                                 else alert("At least one note required!");
@@ -158,7 +94,7 @@ function TaskContainer(props){
                         >
                             ×
                         </button>
-                    <button 
+                    <button
                         className={props.mode ? "dark-addNote" : "add-note"}
                         onClick={() => addTask(index)}
                         aria-label="Add task"

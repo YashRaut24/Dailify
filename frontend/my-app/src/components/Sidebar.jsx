@@ -11,14 +11,14 @@ function Sidebar(props) {
     axios.get("http://localhost:9000/categories")
       .then((response) => {
         const dbCategories = response.data;
-        
+
         if (dbCategories && dbCategories.length > 0) {
           props.setTaskCategories(dbCategories);
-          
+
           props.setSelectedTask(dbCategories[0].id);
         } else {
           const defaultCategory = { id: "task1", name: "Tasks 1" };
-          
+
           axios.post("http://localhost:9000/category/add", defaultCategory)
             .then(() => {
               props.setTaskCategories([defaultCategory]);
@@ -65,10 +65,10 @@ function Sidebar(props) {
         axios.get(`http://localhost:9000/tasks/${categoryId}`)
           .then((response) => {
             const tasks = response.data;
-            
-            const deletePromises = tasks.map(task => 
+
+            const deletePromises = tasks.map(task =>
               axios.delete("http://localhost:9000/delete", {
-                data: { 
+                data: {
                   task: task.task,
                   category: categoryId
                 }
